@@ -10,6 +10,11 @@
 !.yarn/releases
 !.yarn/versions
 
+# build folder
+/dist
+/out
+/render/.next
+
 # testing
 /coverage
 

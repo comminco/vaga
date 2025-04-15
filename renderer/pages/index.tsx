@@ -19,9 +19,9 @@ const IndexPage = () => {
   };
 
   return (
-    <Layout title="Home | Next.js + TypeScript + Electron Exampl">
-      <h1>Hello Next.js 👋</h1>
-      <button onClick={onSayHiClick}>Say hi to electron</button>
+    <Layout title="">
+      <h1>VAGA</h1>
+      <button onClick={onSayHiClick}>Hi~</button>
       <p>
         <Link href="/about">About</Link>
       </p>
