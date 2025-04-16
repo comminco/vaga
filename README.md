@@ -1,50 +1,91 @@
-# Electron with Typescript application example
+# electron-vite-react
 
-This example shows how to use Next.js inside an Electron application. To avoid a lot of configuration, we use Next.js as a router for pages, and use server rendering to speed up the initial render of the application. Both Next.js and Electron layers are written in TypeScript and compiled to JavaScript during the build process.
+[![awesome-vite](https://awesome.re/mentioned-badge.svg)](https://github.com/vitejs/awesome-vite)
+![GitHub stars](https://img.shields.io/github/stars/caoxiemeihao/vite-react-electron?color=fa6470)
+![GitHub issues](https://img.shields.io/github/issues/caoxiemeihao/vite-react-electron?color=d8b22d)
+![GitHub license](https://img.shields.io/github/license/caoxiemeihao/vite-react-electron)
+[![Required Node.JS >= 14.18.0 || >=16.0.0](https://img.shields.io/static/v1?label=node&message=14.18.0%20||%20%3E=16.0.0&logo=node.js&color=3f893e)](https://nodejs.org/about/releases)
 
-| Part       | Source code (Typescript) | Builds (JavaScript) |
-| ---------- | ------------------------ | ------------------- |
-| Next.js    | `/renderer`              | `/renderer`         |
-| Electron   | `/electron-src`          | `/main`             |
-| Production |                          | `/dist`             |
+English | [简体中文](README.zh-CN.md)
 
-For development it's going to run a HTTP server and let Next.js handle routing. In production it will use `output: 'export'` to pre-generate HTML static files and use them in your app (instead of running a HTTP server).
+## 👀 Overview
 
-## How to use
+📦 Ready out of the box  
+🎯 Based on the official [template-react-ts](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts), project structure will be familiar to you  
+🌱 Easily extendable and customizable  
+💪 Supports Node.js API in the renderer process  
+🔩 Supports C/C++ native addons  
+🐞 Debugger configuration included  
+🖥 Easy to implement multiple windows  
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+## 🛫 Quick Setup
 
-```bash
-npx create-next-app --example with-electron-typescript with-electron-typescript-app
+```sh
+# clone the project
+git clone https://github.com/electron-vite/electron-vite-react.git
+
+# enter the project directory
+cd electron-vite-react
+
+# install dependency
+npm install
+
+# develop
+npm run dev
 ```
 
-```bash
-yarn create next-app --example with-electron-typescript with-electron-typescript-app
+## 🐞 Debug
+
+![electron-vite-react-debug.gif](/electron-vite-react-debug.gif)
+
+## 📂 Directory structure
+
+Familiar React application structure, just with `electron` folder on the top :wink:  
+*Files in this folder will be separated from your React application and built into `dist-electron`*  
+
+```tree
+├── electron                                 Electron-related code
+│   ├── main                                 Main-process source code
+│   └── preload                              Preload-scripts source code
+│
+├── release                                  Generated after production build, contains executables
+│   └── {version}
+│       ├── {os}-{os_arch}                   Contains unpacked application executable
+│       └── {app_name}_{version}.{ext}       Installer for the application
+│
+├── public                                   Static assets
+└── src                                      Renderer source code, your React application
 ```
 
-```bash
-pnpm create next-app --example with-electron-typescript with-electron-typescript-app
+<!--
+## 🚨 Be aware
+
+This template integrates Node.js API to the renderer process by default. If you want to follow **Electron Security Concerns** you might want to disable this feature. You will have to expose needed API by yourself.  
+
+To get started, remove the option as shown below. This will [modify the Vite configuration and disable this feature](https://github.com/electron-vite/vite-plugin-electron-renderer#config-presets-opinionated).
+
+```diff
+# vite.config.ts
+
+export default {
+  plugins: [
+    ...
+-   // Use Node.js API in the Renderer-process
+-   renderer({
+-     nodeIntegration: true,
+-   }),
+    ...
+  ],
+}
 ```
+-->
 
-Available commands:
+## 🔧 Additional features
 
-```bash
-"build-renderer": build and transpile Next.js layer
-"build-electron": transpile electron layer
-"build": build both layers
-"dev": start dev version
-"dist": create production electron build
-"type-check": check TypeScript in project
-```
+1. electron-updater 👉 [see docs](src/components/update/README.md)
+1. playwright
 
-## Notes
+## ❔ FAQ
 
-You can create the production app using `npm run dist`.
-
-_note regarding types:_
-
-- Electron provides its own type definitions, so you don't need @types/electron installed!
-  source: https://www.npmjs.com/package/@types/electron
-- There were no types available for `electron-next` at the time of creating this example, so until they are available there is a file `electron-next.d.ts` in `electron-src` directory.
-# vaga
-# vaga
+- [C/C++ addons, Node.js modules - Pre-Bundling](https://github.com/electron-vite/vite-plugin-electron-renderer#dependency-pre-bundling)
+- [dependencies vs devDependencies](https://github.com/electron-vite/vite-plugin-electron-renderer#dependencies-vs-devdependencies)
